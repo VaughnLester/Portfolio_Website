@@ -19,7 +19,7 @@ const server = http.createServer(async (request, response)=>{
             response.end("PAGE 1");
             break;
         default:
-            response.end("Error:404 No path found!");
+            response.end("Error:404 No path found!<a href='home'>Home</a>");
     }
 })
 server.listen(3000,console.log("server running on 3000"));
