@@ -9,14 +9,17 @@ const fs = require('fs').promises; //to use async function promises to read file
 const server = http.createServer(async (request, response)=>{
     switch(request.url){
         case "/home":
-            const homePage = await fs.readFile("index.html")
-            response.end(homePage);
-            break;
+            try{
+                const homePage = await fs.readFile("index.html")
+                response.end(homePage);
+                break;
+            }
+            catch(error) {console.log("error loading page /home")}
         case "/page1":
             response.end("PAGE 1");
             break;
         default:
-            response.end("No results found!");
+            response.end("Error:404 No path found!");
     }
 })
 server.listen(3000,console.log("server running on 3000"));
