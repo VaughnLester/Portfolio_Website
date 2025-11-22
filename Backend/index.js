@@ -10,16 +10,17 @@ const server = http.createServer(async (request, response)=>{
     switch(request.url){
         case "/home":
             try{
-                const homePage = await fs.readFile("index.html")
+                const homePage = await fs.readFile("Frontend/index.html")
                 response.end(homePage);
                 break;
             }
-            catch(error) {console.log("error loading page /home")}
-        case "/page1":
-            response.end("PAGE 1");
-            break;
+            catch(error) {console.log("error loading page /home, "+error)}
         default:
-            response.end("Error:404 No path found!<a href='home'>Home</a>");
+            try{
+                const defaultPage = await(fs.readFile("Frontend/noPathFound.html"))
+                response.end(defaultPage);
+            }
+            catch (error){console.log("Error loading no path found page, "+error);}
     }
 })
 server.listen(3000,console.log("server running on 3000"));
